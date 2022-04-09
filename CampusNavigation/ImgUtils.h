@@ -1,7 +1,11 @@
+/*****************************************************************//**
+ * \file   ImgUtils.h
+ * \author WiDAYN
+ * \date   10 April 2022
+ *********************************************************************/
 #pragma once
 #define MAKEUS(a, b)	((unsigned short) ( ((unsigned short)(a))<<8 | ((unsigned short)(b)) ))
 #define MAKEUI(a,b,c,d) ((unsigned int) ( ((unsigned int)(a)) << 24 | ((unsigned int)(b)) << 16 | ((unsigned int)(c)) << 8 | ((unsigned int)(d)) ))
-
 #define M_DATA  0x00
 #define M_SOF0  0xc0
 #define M_DHT   0xc4

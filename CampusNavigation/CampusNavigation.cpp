@@ -1,10 +1,22 @@
-﻿#include <iostream>
+﻿/*****************************************************************//**
+ * \file   CampusNavigation.cpp
+ * \author WiDAYN
+ * \date   10 April 2022
+ *********************************************************************/
+#include "ImgUtils.h"
+#include "Logger.h"
+#include <iostream>
 #include <easyx.h>
 #include <graphics.h>
-#include "ImgUtils.h"
+#include <windows.h>
 
 int main()
 {
+	Logger::logSuccess("123");
+	Logger::logFail("123");
+	Logger::logInfo("123");
+	Logger::logWarn("123");
+
 	unsigned int unWidth = 0, unHeight = 0;
 
 	ImgUtils::GetPicWidthHeight("./开发阶段地图.png", &unWidth, &unHeight);
@@ -18,19 +30,9 @@ int main()
 		switch (m.uMsg)
 		{
 		case WM_LBUTTONDOWN:
-			COLORREF col = getpixel(m.x, m.y);
-			int r = GetRValue(col);
-			int g = GetGValue(col);
-			int b = GetBValue(col);
-			if (r > 240 && g > 240 && b > 240) {
-				std::cout << "White\n";
-			}
-			else {
-				std::cout << "Not White\n";
-			}
-
 			setfillcolor(RED);
 			solidcircle(m.x, m.y, 3);
+
 			break;
 		}
 	}
