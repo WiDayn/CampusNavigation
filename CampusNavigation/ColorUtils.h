@@ -7,9 +7,11 @@
 #include <windef.h>
 #include <wingdi.h>
 #include <iostream>
+#include <easyx.h>
 
 class ColorUtils
 {
-	static bool isWhite(COLORREF col);
+public:
+	static bool isTarget(int x, int y);
 };
 

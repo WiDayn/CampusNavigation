@@ -3,6 +3,7 @@
  * \author WiDAYN
  * \date   10 April 2022
  *********************************************************************/
+#include "ColorUtils.h"
 #include "ImgUtils.h"
 #include "Logger.h"
 #include <iostream>
@@ -30,9 +31,9 @@ int main()
 		switch (m.uMsg)
 		{
 		case WM_LBUTTONDOWN:
+			ColorUtils::isWhite(m.x, m.y);
 			setfillcolor(RED);
 			solidcircle(m.x, m.y, 3);
-
 			break;
 		}
 	}

@@ -21,6 +21,9 @@
 
 class ImgUtils
 {
+	/*
+		读取图片的长和宽，借鉴自网络
+	*/
 public:
 	static int GetPNGWidthHeight(const char* path, unsigned int* punWidth, unsigned int* punHeight);
 	static int GetJPEGWidthHeight(const char* path, unsigned int* punWidth, unsigned int* punHeight);

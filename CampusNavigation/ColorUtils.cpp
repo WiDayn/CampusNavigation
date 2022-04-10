@@ -5,8 +5,9 @@
  *********************************************************************/
 #include "ColorUtils.h"
 
-bool ColorUtils::isWhite(COLORREF col)
+bool ColorUtils::isTarget(int x, int y)
 {
+	COLORREF col = getpixel(x, y);
 	int r = GetRValue(col);
 	int g = GetGValue(col);
 	int b = GetBValue(col);
