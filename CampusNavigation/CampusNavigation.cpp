@@ -1,5 +1,6 @@
 ﻿#include "Logger.h"
 #include "ColorUtils.h"
+#include "ImgUtils.h"
 #include<graphics.h>
 #include<windows.h>
 #include<iostream>
@@ -55,6 +56,7 @@ void bfs(int X1, int Y1, int X2, int Y2)
 	q.push(now);
 	while (!q.empty())
 	{
+		//Sleep(1);
 		now = q.top(); q.pop();
 		if (vis[now.x][now.y])continue; vis[now.x][now.y] = 1;
 		setfillcolor(RGB(255, 0, 0));
@@ -89,7 +91,7 @@ void bfs(int X1, int Y1, int X2, int Y2)
 	int lastx = 0, lasty = 0;
 	int pts[5000] = { 0 };
 	int cnt = 0;
-	for (int i = 0; i <= precnt; i += 10) {
+	for (int i = 0; i <= precnt; i += 6) {
 		double avgk = 0;
 		for (int i = 0; i < min(cnt / 2, 100); i++) avgk += lastk[i];
 		avgk /= min(cnt / 2, 100);
@@ -123,7 +125,9 @@ void bfs(int X1, int Y1, int X2, int Y2)
 int main()
 {
 	Logger::logInfo("预处理地图中...");
-	initgraph(width, height);
+	unsigned int unWidth = 0, unHeight = 0;
+	ImgUtils::GetPicWidthHeight("./Map.png", &unWidth, &unHeight);
+	initgraph(unWidth, unHeight, EW_SHOWCONSOLE);
 	setfillcolor(RGB(255, 0, 0));
 	setlinestyle(PS_SOLID | PS_ENDCAP_FLAT | PS_JOIN_BEVEL, 3);
 	loadimage(&Map, _T(".\\Map.png"));
@@ -131,16 +135,13 @@ int main()
 	mapToSpot();
 	Logger::logSuccess("加载完毕！可以开始选点了!");
 	while (1) {
-		MOUSEMSG m1, m2;
+		ExMessage m1, m2, m3;
 		while (1)
 		{
-			if (MouseHit())
-			{
-				m1 = GetMouseMsg();
-				if (m1.uMsg == WM_LBUTTONDOWN && ColorUtils::isTarget(m1.x, m1.y)) {
-					solidcircle(m1.x, m1.y, 4);
-					break;
-				}
+			peekmessage(&m1);
+			if (m1.message == WM_LBUTTONDOWN && ColorUtils::isTarget(m1.x, m1.y)) {
+				solidcircle(m1.x, m1.y, 4);
+				if (m1.ctrl != true) break;
 			}
 		}
 		lastInf = "第一个点的坐标为: " + to_string(m1.x);
@@ -148,13 +149,10 @@ int main()
 		Logger::logInfo(lastInf);
 		while (1)
 		{
-			if (MouseHit())
-			{
-				m2 = GetMouseMsg();
-				if (m2.uMsg == WM_LBUTTONDOWN && ColorUtils::isTarget(m2.x, m2.y)) {
-					solidcircle(m2.x, m2.y, 4);
-					break;
-				}
+			peekmessage(&m2);
+			if (m2.message == WM_LBUTTONDOWN && ColorUtils::isTarget(m2.x, m2.y)) {
+				solidcircle(m2.x, m2.y, 4);
+				break;
 			}
 		}
 		lastInf = "第二个点的坐标为: " + to_string(m2.x);
@@ -170,12 +168,9 @@ int main()
 		Logger::logSuccess("Use Time: " + to_string(dur / CLOCKS_PER_SEC));
 		while (1)
 		{
-			if (MouseHit())
-			{
-				m2 = GetMouseMsg();
-				if (m2.uMsg == WM_LBUTTONDOWN) {
-					break;
-				}
+			peekmessage(&m3);
+			if (m3.message == WM_LBUTTONDOWN) {
+				break;
 			}
 		}
 		putimage(0, 0, &Map);
