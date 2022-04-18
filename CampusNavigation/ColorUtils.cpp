@@ -12,11 +12,9 @@ bool ColorUtils::isTarget(int x, int y)
 	int g = GetGValue(col);
 	int b = GetBValue(col);
 	if (r > 240 && g > 240 && b > 240) {
-		std::cout << "White\n";
 		return true;
 	}
 	else {
-		std::cout << "Not White\n";
 		return false;
 	}
 }
