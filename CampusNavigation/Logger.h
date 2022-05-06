@@ -11,6 +11,7 @@
 class Logger
 {
 public:
+	static void log(std::string s);
 	static void logSuccess(std::string s);
 	static void logInfo(std::string s);
 	static void logWarn(std::string s);

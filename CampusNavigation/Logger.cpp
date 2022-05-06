@@ -5,6 +5,11 @@
  *********************************************************************/
 #include "Logger.h"
 
+void Logger::log(std::string s)
+{
+	std::cout << s << std::endl;
+}
+
 void Logger::logSuccess(std::string s)
 {
 	std::cout << "\033[32m" << "[" << StringUtils::getTime() << " SUCCESS]" << s << "\033[0m" << std::endl;
