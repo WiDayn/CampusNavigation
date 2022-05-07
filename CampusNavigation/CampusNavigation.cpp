@@ -8,18 +8,19 @@
 #include<cstdio>
 #include<cmath>
 #include<queue>
-#include <thread>
+#include<thread>
 #define DIS_PERCENT 1.2
 #define WALK_PERCENT 65
-#define INF 1000
+#define INF 0x3f3f3f3f
+#define ARRAY_SIZE 2333
 using namespace std;
 int W, H;
 unsigned int unWidth = 0, unHeight = 0;
 const int N = 1;
 const double sqrt2 = sqrt(2.0);
 IMAGE Map;
-int spot[2333][2333], lu[2333][2333], vis[2333][2333];
-double dis[2333][2333];
+int spot[ARRAY_SIZE][ARRAY_SIZE], lu[ARRAY_SIZE][ARRAY_SIZE], vis[ARRAY_SIZE][ARRAY_SIZE];
+double dis[ARRAY_SIZE][ARRAY_SIZE];
 string lastInf;
 bool selected = false;
 
@@ -45,7 +46,7 @@ struct dian
 	{
 		return a.dis_from + a.dis_to > b.dis_from + b.dis_to;
 	}
-}from[2333][2333];
+}from[ARRAY_SIZE][ARRAY_SIZE];
 priority_queue<dian>q;
 int dx[10] = { 0,-1,-1,1,1,-1,0,0,1 };
 int dy[10] = { 0,-1,1,-1,1,0,-1,1,0 };
@@ -57,14 +58,13 @@ void bfs(int X1, int Y1, int X2, int Y2)
 	dian now, to; double tmp_dis; now.x = X1; now.y = Y1; now.dis_from = 0;
 
 	for (int i = 1; i <= W; ++i)
-		for (int j = 1; j <= H; ++j) dis[i][j] = 114514;
+		for (int j = 1; j <= H; ++j) dis[i][j] = INF;
 	dis[now.x][now.y] = 0;
 	q.push(now);
 	bool flag = false;
 
 	while (!q.empty() && !flag)
 	{
-		Sleep(1);
 		now = q.top(); q.pop();
 		if (vis[now.x][now.y])continue; vis[now.x][now.y] = 1;
 		setfillcolor(RGB(255, 0, 0));
@@ -102,7 +102,7 @@ void bfs(int X1, int Y1, int X2, int Y2)
 	int lastx = 0, lasty = 0;
 	int pts[5000] = { 0 };
 	int cnt = 0;
-	for (int i = 0; i < precnt; i += 2) {
+	for (int i = 0; i < precnt; i += 10) {
 		double avgk = 0;
 		for (int i = 0; i < min(cnt / 2, 100); i++) avgk += lastk[i];
 		avgk /= min(cnt / 2, 100);
